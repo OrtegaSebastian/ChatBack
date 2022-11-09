@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Chat app</title>
+</head>
+<body>
+    <div id="container">
+        <h1>
+        Socket Chat app
+        </h1>
+        <div id="chatSection">
+        <div class="chat-window">
+        </div>
+        <form class="chat-form">
+            <label class="chat-label">
+            Ingrese su correo para chatear    
+            <input type="Email" class="chat-Correo" />
+            <label style="" class="chat-label">
+            Enter a message:
+            <input type="text" class="chat-input" />
+            </label>
+            <input type="submit" class="chat-submit" value="enter" />
+        </form>
+        </div>
+    </div>
+    <!-- CDN para utilizar normalizr desde el FRONT -->
+    <script src="https://cdn.jsdelivr.net/npm/normalizr@3.6.1/dist/normalizr.browser.min.js
+    "></script>
+    <script src="socket.io/socket.io.js"></script>
+    <script src="../public/script.js"></script>
+
+    
+</body>
+ 
+</html>
