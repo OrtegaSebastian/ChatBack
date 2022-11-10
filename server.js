@@ -1,12 +1,14 @@
 import express from 'express';
 import http from 'http';
 import { Server } from 'socket.io';
-import ContainerFake from './containers/ContainFake.js';
-import FSContainer from './containers/ContainFs.js';
+import ContainerFake from './src/containers/ContainFake.js';
+import FSContainer from './src/containers/ContainFs.js';
 import path from "path";
 import { fileURLToPath } from "url";
+import handlebars from "express-handlebars";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+
 
 const app = express();
 const server = http.createServer(app);
@@ -29,12 +31,18 @@ io.on('connection', async (socket) => {
 		io.sockets.emit('chat', chat);
 	});
 });
-
-app.use(express.static('views'));
+app.set("views", path.join(__dirname, "/views"));
+app.use("/", express.static(path.join(__dirname, "/views")))
+const hbs = handlebars.engine({
+    extname: '.hbs',
+    layoutsDir: __dirname + "/views",
+})
+app.engine("hbs", hbs);
+app.set('view engine', 'hbs');
 app.use(express.urlencoded({ extended: true }));
 
 app.get('/', (req, res) => {
-	res.sendFile(__dirname + '/chat.hbs');
+	res.render("index", {layout:"chat"});
 });
 
 
